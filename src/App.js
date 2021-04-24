@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
 
+import RomanNumerals from './services/RomanNumerals'
+import {useState} from "react";
+
 function App() {
+  const defaultDecimal = 1000;
+  const defaultRoman = RomanNumerals.toRoman(defaultDecimal)
+  const [romanNumber, setRomanNumber] = useState(defaultRoman);
+  const [decimalNumber, setDecimalNumber] = useState(defaultDecimal);
+
+  const onRomanNumberChange = event => {
+    const romanNumber = event.target.value.toUpperCase();
+    setRomanNumber(romanNumber);
+
+  };
+
+  const onDecimalNumberChange = event => {
+    const decimalNumber = event.target.value;
+    setDecimalNumber(decimalNumber);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <input
+          type="text"
+          placeholder="Enter roman number"
+          value={romanNumber}
+          onChange={onRomanNumberChange}
+          required
+      />
+      <input
+          type="number"
+          placeholder="Enter decimal number"
+          value={decimalNumber}
+          onChange={onDecimalNumberChange}
+          pattern="\d*"
+          required
+      />
     </div>
   );
 }
